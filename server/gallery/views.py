@@ -38,7 +38,7 @@ def show_album(request, key):
     """ Выводит изображения альбома. Выборку делаем по ключу. """
     if request.user.is_authenticated():
         pic_list = Picture.all().filter("album", db.Key(key))
-        paginator = Paginator(pic_list, 2)
+        paginator = Paginator(pic_list, 10)
         try:
             page = int(request.GET.get('page', '1'))
         except ValueError:

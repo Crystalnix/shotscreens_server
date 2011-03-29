@@ -41,6 +41,7 @@
         {% else %}
             <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
             <li><a>Free space: {{ user.free_size|filesizeformat }}</a></li>
+            <li><div class="user_name"><a>{{ user.email }}</a></div></li>
         {% endif %}
     </ul>
 {% endblock %}
