@@ -1,0 +1,3 @@
+cron:
+- url: /gallery/tasks/clear_old_picture
+  schedule: every 24 hours

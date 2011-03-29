@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Upload image</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="{% if object %}Apply changes{% else %}Upload{% endif %}"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+{% endblock %}

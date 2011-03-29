@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Delete picture{% endblock %}
+
+{% block content %}
+<h1>Delete picture</h1>
+<a href="{% url gallery.views.gallery %}">Back to gallery</a>
+
+<p>
+Do you really want to delete {{ object.name }}?<br/>
+
+<center><a href="{{ object.get_absolute_url }}" title="<b>Name: </b>{{ object.name }} <b>Uploaded:</b> <i>{{ object.submitted_date|date }}</i> {% if object.caption %}<b>Caption:</b> <i>{{ object.caption }}</i><br/>{% endif %}" class="thickbox"><img src="{{ object.get_absolute_url }}" alt="{{ object.name }}" width=296/></a><br/></center>
+
+<form action="" method="post">
+  <input type="submit" name="delete" value="Delete" />
+</form>
+</p>
+
+{% endblock %}

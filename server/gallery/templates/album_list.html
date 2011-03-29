@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Gallery:</h2>
+    {% if not object_list %}
+            <p>Please create <a href="{% url gallery.views.create_album %}">album</a></p>
+    {% endif %}
+    <div class="main_container">
+    {% for album in object_list %}
+        <div class="album_container">
+            <div class="album_image">
+                <a href="{% url gallery.views.show_album key=album.key %}">
+                    {% if album.get_cover_url %}
+                        <img src="{{ album.get_cover_url }}">
+                    {% else %}
+                        <img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCABOAE4DASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAABAABAgMFBgf/xAA2EAACAQIDBQUFBwUAAAAAAAABAgADEQQSIQUTMUFRBiJhgcEyUnGRoRQVI0JTseEzc4LR8P/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD3GMTaImwvKwN53m9jkOviYCLlv6Y094xBPfLN8T/qWW8JCtVSjTL1HCqOJMBhTT9NfkIt0n6YHiBaZtTtBhFayrVcdVUAH5mWYbbeDruFLNSYmw3gsD5wDijA91j/AJaiOtQ3yuMrfQyehjEBhlI0gSilSsUbKx0PA+ktgVVTmYIOHE/CTF+EqpHMzt1aWjj5QH1nJbbxr4nGFA34VMkKOp5mddMFOzxFcO2JDAMGI3fHW/WAsH2fpmirYp33jC+VTbL4QDa2ymwIFSmxekTa5Gq/GdbM/bhUbLr5rarYX63FoAvZ3GvWoth6jXakAVJ4lf4mwbzmezIY49yPZFI3+YnTnhArqLdTHotmTXiNDEx0lFOoErMCdGF/++ZgLCsN2uvKEKwuYHh2soHTSFobwJ5hGuLx4ucDI2ltpsFijQWiHsAcxa3HymJjcfidouEfUflpoOJ9TL+0V/vN/wC2vrOiweHo0cOhpUkQlASVWxOkAbYuB+xUGapbe1NTbkOQmjcdY8ixtArdwF4zPxb2AKnW8KqObQSspqHKvHjAIqA067jkTmHnx+supvrHxlE1EDIO+uo8eogiPcXDfSBoho99YIlQ9f2k95wuf2gAbUwWBrYreYrF7p2UDLmA085qoFWkqqbqFABnIbUwuKGPqsUqOKjkqyre48pvbMWrQ2fRp1iQ4Go001vaBpM1hKKtTQyt3PvSh3vzgSdpPZy5meqeHsj19IIc1R1RDdmOk16FMUqSoOXPrAsgWLwpJNWiNfzL1+HjDYoGQtTU/W/KT3mkNr4WlW1ZbN7w0P8AMCq4KpTUsjoyjroYD7yRapqLQF8QiMVZTfwkqL75rINfHSAS1SVrnqPkpqWc8hCqezSdazgDog9TDqNCnRXLTQKOfjApweFFBSW71Rvab0EKiigf/9k=" width="48">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="album_info">
+                <b><center>{{ album.name }}</center></b>
+                <center>{{ album.created_date|date }} <a href="{% url gallery.views.delete_album key=album.key %}">Delete</a></center>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

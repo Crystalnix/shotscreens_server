@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <center>
+        <a href="{{ picture.get_absolute_url }}"
+           title="<b>Name: </b>{{ picture.name }} <b>Uploaded:</b> <i>{{ picture.submitted_date|date }}</i> {% if picture.caption %}<b>Caption:</b> <i>{{ picture.caption }}</i><br/>{% endif %}"
+           class="thickbox"><img src="{{ picture.get_small_url }}" alt="{{ picture.name }}" width=296/></a><br/>
+        <b>{{ picture.name }}</b> <i>({{ picture.submitted_date|date }})</i> <b>{{ picture.data|length }} bytes</b></br>
+        {% if user.is_authenticated %}<a href="{% url gallery.views.delete_picture key=picture.key %}">Delete</a>{% endif %}
+
+        {% if last %}<a href="{% url gallery.views.review_picture key=last.key name=last.name %}"><= Last</a>{% endif %} | {% if next %} <a href="{% url gallery.views.review_picture key=next.key name=next.name %}">Next =></a>{% endif %}
+    </center>
+
+{% endblock %}

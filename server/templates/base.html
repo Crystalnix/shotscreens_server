@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon" />
+    <title>{% block title %}{% endblock %} - shotscreens</title>
+    {% block css %}
+        <link rel="stylesheet" href="/media/thickbox.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/media/main.css" type="text/css">
+    {% endblock %}
+    {% block js %}
+        <script type="text/javascript" src="http://yandex.st/jquery/1.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://yandex.st/jquery-ui/1.8.7/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/media/thickbox-compressed.js"></script>
+        <script type="text/javascript" src="/media/main.js"></script>
+    {% endblock %}
+    {% block extra-head %}{% endblock %}
+</head>
+<body>
+{% block header %}
+    <ul class="topnav">
+        <li><a href="/">Home</a></li>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url gallery.views.gallery %}">Gallery</a>
+                <ul class="subnav">
+                    <li><a href="{% url gallery.views.create_album %}">Create album</a></li>
+                    <li><a href="{% url gallery.views.upload_picture %}">Upload image</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        <li><a href="/downloads">Downloads</a></li>
+        <li><a href="/about">About</a></li>
+        {% if not user.is_authenticated %}
+            <li>
+                <a href="{% url django.contrib.auth.views.login %}">Sign in</a>
+                <ul class="subnav">
+                    <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+                    <li><a href="{% url registration.views.register %}">Registration</a></li>
+                </ul>
+            </li>
+        {% else %}
+            <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+            <li><a>Free space: {{ user.free_size|filesizeformat }}</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+<div id="content">
+    {% block content-header %}
+        {% if error %}
+            <div class="error">{{ error }}</div>{% endif %}
+        {% if info %}
+            <div class="info">{{ info }}</div>{% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="info">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>
+<div class="pagenator" align="center">
+    {% block pagenator %}
+    {% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}{{ pics.object_list.0.album.name }}{% endblock %}
+{% block content %}
+    {% if pics.object_list %}
+        <h2>Album {{ pics.object_list.0.album.name }}:</h2>
+    {% endif %}
+    {% if not pics.object_list %}
+        <h2>Album:</h2>
+        <p>Please upload <a href="{% url gallery.views.upload_picture %}">picture</a></p>
+    {% endif %}
+    <div class="main_container" align="center">
+        {% for pic in pics.object_list %}
+            <div class="image_container">
+                <div class="image_small">
+                    <a href="{{ pic.get_absolute_url }}"
+                       title='
+                   <b>Name: </b>{{ pic.name }} <b>
+                   Uploaded:</b> <i>{{ pic.submitted_date|date }}</i>
+                   {% if pic.caption %}<b>Caption:</b> <i>{{ pic.caption }}</i><br/>{% endif %}
+{#                   <a href="{% url gallery.views.review_picture key=pic.key name=pic.name %}">Review</a> /#}
+                   <a href={{ pic.get_absolute_url }} target="_blank">Full</a> /
+                   <a href=""{% url gallery.views.delete_picture key=pic.key %}">Delete</a>
+                   <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                   <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,lj,friendfeed"></div>
+                   '
+                       class="thickbox"><img src="{{ pic.get_small_url }}" alt="{{ pic.name }}" width=296/>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block pagenator %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if pics.has_previous %}
+                <a href="?page={{ pics.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ pics.number }} of {{ pics.paginator.num_pages }}.
+            </span>
+
+            {% if pics.has_next %}
+                <a href="?page={{ pics.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

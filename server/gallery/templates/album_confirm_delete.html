@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Delete album{% endblock %}
+
+{% block content %}
+<h1>Delete album:</h1>
+<a href="{% url gallery.views.gallery %}">Back to gallery</a>
+
+<p>
+Do you really want to delete {{ object.name }}?<br/>
+
+<form action="" method="post">
+  <input type="submit" name="delete" value="Delete" />
+</form>
+</p>
+
+{% endblock %}
