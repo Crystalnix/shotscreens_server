@@ -102,8 +102,8 @@ def upload_picture(request):
                     width_samll = Settings.all().get().width_for_small_picture
                     width_cover = Settings.all().get().width_for_cover_album
                 except:
-                    width_samll = getattr(settings, 'width_for_small_picture', '400')
-                    width_cover = getattr(settings, 'width_for_cover_album', '200')
+                    width_samll = getattr(settings, 'width_for_small_picture', 400)
+                    width_cover = getattr(settings, 'width_for_cover_album', 200)
                 picture.data_small = images.resize( picture.data, width=width_samll)
                 picture.data_cover = images.resize( picture.data, width=width_cover)
 
@@ -270,7 +270,7 @@ def clear_old_picture(request):
     try:
         days = Settings.all().get().days_for_old_picture
     except:
-        days = getattr(settings, 'days_for_old_picture', '30')
+        days = getattr(settings, 'days_for_old_picture', 30)
     query = Picture.all().filter("submitted_date <", datetime.datetime.today() - datetime.timedelta(days=days))
     response = HttpResponse()
     for pic in query:
