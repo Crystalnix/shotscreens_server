@@ -47,7 +47,7 @@ def show_album(request, key):
             pic = paginator.page(page)
         except (EmptyPage, InvalidPage):
             pic = paginator.page(paginator.num_pages)
-        return render_to_response('picture_list.html', {"pics": pic})
+        return render_to_response('picture_list.html', {"pics": pic, "user":request.user})
     else:
         return HttpResponseRedirect('/account/login/')
 
