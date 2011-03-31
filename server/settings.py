@@ -146,8 +146,8 @@ RECAPTCHA_PUBLIC_KEY = '6LdLPMASAAAAAIjSZLuC5Pg04-lOB-nHVmCXbyNP'
 RECAPTCHA_PRIVATE_KEY = '6LdLPMASAAAAAD7i0sY2l7uEkdSE1TP-bBY4_EAR'
 
 # Default settings
-width_for_cover_album = 200
-width_for_small_picture = 400
-days_for_old_picture = 30
+WIDTH_FOR_COVER_ALBUM = 200
+WIDTH_FOR_SMALL_PICTURE = 400
+DAYS_FOR_OLD_PICTURE = 30
 
 from ragendja.settings_post import *
