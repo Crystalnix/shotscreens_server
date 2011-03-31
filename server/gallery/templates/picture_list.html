@@ -23,7 +23,8 @@
                    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
                    <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,lj,friendfeed"></div>
                    '
-                       class="thickbox"><img src="{{ pic.get_small_url }}" alt="{{ pic.name }}" width=296/>
+                       title="Uploaded: {{ pic.submitted_date|date }}"
+                       class="thickbox"><img src="{{ pic.get_small_url }}" alt="{{ pic.name }}" width=296 height="200"/>
                     </a>
                 </div>
             </div>
