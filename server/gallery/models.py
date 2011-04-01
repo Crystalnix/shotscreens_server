@@ -48,22 +48,22 @@ class Picture(db.Model):
     def get_absolute_url(self):
         """ Функция для объекта, возвращает прямую ссылку на картинку из БД """
         return ('gallery.views.download_file', (), {'key': self.key(),
-                                                    'name': self.name})
+                                                    'name': self.name+".png"})
     @permalink
     def get_cover_url(self):
         """ Функция для объекта, возвращает прямую ссылку на картинку из БД """
         return ('gallery.views.download_cover', (), {'key': self.key(),
-                                                    'name': self.name})
+                                                    'name': self.name+".png"})
     @permalink
     def get_small_url(self):
         """ Функция для объекта, возвращает прямую ссылку на картинку из БД """
         return ('gallery.views.download_small', (), {'key': self.key(),
-                                                    'name': self.name})
+                                                    'name': self.name+".png"})
 
     @permalink
     def get_view_url(self, key, name):
         return ('gallery.views.view_picture', (), {'key': key,
-                                                    'name': name})
+                                                    'name': name+".png"})
 
     def __unicode__(self):
         return u'File: %s' % self.name
