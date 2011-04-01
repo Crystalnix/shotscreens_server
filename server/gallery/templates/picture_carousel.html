@@ -1,0 +1,149 @@
+
+{% extends "base.html" %}
+{% block js-other %}
+<script type="text/javascript" src="https://github.com/zachstronaut/jquery-css-transform/raw/master/jquery-css-transform.js"></script>
+<script type="text/javascript" src="https://github.com/zachstronaut/jquery-animate-css-rotate-scale/raw/master/jquery-animate-css-rotate-scale.js"></script>
+<script type="text/javascript">
+$(function() {
+
+	/* START --- User Variables --- START */
+	var num_img = 3;
+	var $car = $('#photos_ul');
+	/* END --- User Variables --- END */
+
+	var $offset = $($car).css('left');
+	var ctr_img = Math.round(num_img / 2);
+
+	$('li:first', $car).before($('li:last', $car));
+	$('li:first', $car).before($('li:last', $car));
+	$('li', $car).scale(0.75);
+	$('li:eq(' + ctr_img + ')', $car).scale(1);
+	//$car.css({'left' : $offset});
+
+	$('#photos_right img').click(function(){
+
+		var itemWidth = $('li', $car).outerWidth(true);
+		var leftPos = parseInt($car.css('left')) - itemWidth;
+
+		$car.filter(':not(:animated)').animate({'left' : leftPos}, 500,
+			function() {
+
+				$('li:last', $car).after($('li:first', $car));
+				$car.css({'left' : $offset});
+
+            });
+
+			$('li:eq(' + ( ctr_img + 1 ) + ')', $car).animate({ scale: '1' }, 500);
+			$('li:eq(' + ctr_img + ')', $car).animate({ scale: '0.75' }, 500);
+
+	});
+
+	$('#photos_left img').click(function(){
+
+		var itemWidth = $('li', $car).outerWidth(true);
+		var leftPos = parseInt($car.css('left')) + itemWidth;
+		$car.filter(':not(:animated)').animate({'left' : leftPos}, 500,
+			function() {
+
+				$('li:first', $car).before($('li:last', $car));
+				$car.css({'left' : $offset});
+
+			});
+
+			$('li:eq(' + ( ctr_img - 1 ) + ')', $car).animate({ scale: '1' }, 500);
+			$('li:eq(' + ctr_img + ')', $car).animate({ scale: '0.75' }, 500);
+
+	});
+
+});
+</script>
+<style type="text/css">
+#photos_container {
+	width: 754px; /* Width 1 list item + left & right margin x 2 */
+	margin: 9% auto 0 auto;
+	padding: 20px 0;
+}
+#photos_inner {
+	width: 754px;  /* Width 1 list item + left & right margin x 2 */
+	overflow: hidden;  /* important (hide the items outside the div) */
+}
+#photos_ul {
+	position:relative;
+	left:-566px; /* (neg) (1 list item + left & right margin) + (half 1 list item + left margin) */
+	list-style-type: none; /* removing the default styling for unordered list items */
+	margin: 0px;
+	padding: 0px;
+	width:9999px; /* important */
+	padding-bottom:10px;
+}
+#photos_ul li{
+	float: left; /* important for inline positioning of the list items */
+	width: 297px;  /* width of 1 image + left & right borders */
+	transform: scale(0.75);
+	-moz-transform: scale(0.75);
+	-o-transform: scale(0.75);
+	-webkit-transform: scale(0.75);
+	padding:0px;
+	margin: 10px 40px;
+}
+#photos_ul li img {
+	width: 400px;
+	.margin-bottom:-4px;  IE is making a 4px gap bellow an image inside of an anchor (<a href...>) so this is to fix that
+	cursor:pointer;
+	cursor: hand;
+	box-shadow: 1px 1px 5px #555;
+	-moz-box-shadow: 1px 1px 5px #555;
+	-o-box-shadow: 1px 1px 5px #555;
+	-webkit-box-shadow: 1px 1px 5px #555;
+}
+#photos_nav {
+	width: 72px;
+	margin: 0 auto;
+}
+#photos_left, #photos_right {
+	float:left;
+	height:36px;
+	width:36px;
+}
+#photos_left img, #photos_right img {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.block {
+    text-align: center;
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        overflow: visible;
+        display: block;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="block">
+<div id="photos_container">
+	<div id="photos_inner">
+		<ul id="photos_ul">
+            {% for pic in object_list %}
+			<li><a href="{{ pic.get_absolute_url }}" class="thickbox"
+                    name='
+                   <b>Name: </b>{{ pic.name }} <b>
+                   Uploaded:</b> <i>{{ pic.submitted_date|date }}</i>
+                   {% if pic.caption %}<b>Caption:</b> <i>{{ pic.caption }}</i><br/>{% endif %}
+{#                   <a href="{% url gallery.views.review_picture key=pic.key name=pic.name %}">Review</a> /#}
+                   <a href={{ pic.get_absolute_url }} target="_blank">Full</a> /
+                   <a href=""{% url gallery.views.delete_picture key=pic.key %}">Delete</a>
+                   <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                   <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,lj,friendfeed"></div>
+                   '><img src="{{ pic.get_small_url }}" /></a></li>
+            {% endfor %}
+		</ul>
+	</div>
+	<div id="photos_nav">
+		<div id="photos_left"><img src="/media/prev.png" /></div>
+		<div id="photos_right"><img src="/media/next.png" /></div>
+	</div>
+</div>
+</div>
+{% endblock %}

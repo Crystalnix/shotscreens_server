@@ -1,3 +1,7 @@
+body {
+	background: #EFEFEF;
+}
+
 .user_name {
     margin-left:100px;
 }
@@ -9,6 +13,7 @@
 #content {
     height:100%;
     display: inline-block;
+    /*display:block;*/
 }
 /*album_list BEGIN*/
 .album_container {

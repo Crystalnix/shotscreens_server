@@ -51,6 +51,12 @@ def show_album(request, key):
     else:
         return HttpResponseRedirect('/account/login/')
 
+def picture_carousel(request, key):
+    if request.user.is_authenticated():
+        return object_list(request, Picture.all().filter("album", db.Key(key)), template_name='picture_carousel.html')
+    else:
+        return HttpResponseRedirect('/account/login/')
+
 def list_album(request):
     """
         Для desktop клиента отдаем список имен всех альбомов пользователя
@@ -126,7 +132,7 @@ def download_file(request, key, name):
     file = memcache.get("full_"+key)
     if file is not None:
         return HttpResponse(file,
-                            content_type='image/png',
+                            content_type='application/octet-stream',
                             mimetype='image/png')
     else:
         file = Picture.get(db.Key(key))
@@ -134,7 +140,7 @@ def download_file(request, key, name):
         if file.name != name:
             raise Http404('Could not find file with this name!') # если имя файла не соответсвует существующему то выводим сообщение
         return HttpResponse(file.data,
-                            content_type='image/png',
+                            content_type='application/octet-stream',
                             mimetype='image/png')
 
 #    file = Picture.get(db.Key(key)) # db.KEY преобразует ключ из текстовой формы в объект KYE

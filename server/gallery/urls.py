@@ -19,4 +19,5 @@ urlpatterns = patterns('gallery.views',
     (r'^user_info/$', 'user_info'),
     (r'^upload/$', 'upload_file'),
     (r'^tasks/clear_old_picture/$', 'clear_old_picture'),
+    (r'^picture_carousel/(?P<key>.+)$', 'picture_carousel'),
 )
