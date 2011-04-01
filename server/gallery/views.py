@@ -25,7 +25,8 @@ from django.conf import settings
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
-
+import imghdr
+from django import forms
 
 def gallery(request):
     """ Выводит список альбомом. """
@@ -105,7 +106,9 @@ def upload_picture(request):
                 picture = super(AddPictureForm, self).save(commit=False)
                 picture.submitter = request.user # при сохранение, поле заполняем данными из request
 
-                picture.data = images.rotate(picture.data, 0)
+                if not len(request.META["HTTP_USER_AGENT"])>4:
+                    if not imghdr.what(None, h=picture.data): # проверяем тип файла
+                        raise forms.ValidationError(u'Filetype is not png format')
 
                 try:
                     width_samll = Settings.all().get().width_for_small_picture
