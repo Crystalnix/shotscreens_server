@@ -6,7 +6,7 @@
 <a href="{% url gallery.views.gallery %}">Back to gallery</a>
 
 <p>
-Do you really want to delete {{ object.name }}?<br/>
+Do you really want to delete image: "{{ object.name }}"?<br/>
 
 <center><a href="{{ object.get_absolute_url }}" title="<b>Name: </b>{{ object.name }} <b>Uploaded:</b> <i>{{ object.submitted_date|date }}</i> {% if object.caption %}<b>Caption:</b> <i>{{ object.caption }}</i><br/>{% endif %}" class="thickbox"><img src="{{ object.get_absolute_url }}" alt="{{ object.name }}" width=296/></a><br/></center>
 

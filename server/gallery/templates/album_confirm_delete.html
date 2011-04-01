@@ -6,7 +6,7 @@
 <a href="{% url gallery.views.gallery %}">Back to gallery</a>
 
 <p>
-Do you really want to delete {{ object.name }}?<br/>
+Do you really want to delete album: "{{ object.name }}"?<br/>
 
 <form action="" method="post">
   <input type="submit" name="delete" value="Delete" />
