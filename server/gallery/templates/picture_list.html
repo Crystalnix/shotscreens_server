@@ -19,7 +19,7 @@
                    {% if pic.caption %}<b>Caption:</b> <i>{{ pic.caption }}</i><br/>{% endif %}
 {#                   <a href="{% url gallery.views.review_picture key=pic.key name=pic.name %}">Review</a> /#}
                    <a href={{ pic.get_absolute_url }} target="_blank">Full</a> /
-                   <a href=""{% url gallery.views.delete_picture key=pic.key %}">Delete</a>
+                   <a href="{% url gallery.views.delete_picture key=pic.key %}">Delete</a>
                    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
                    <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,lj,friendfeed"></div>
                    '
