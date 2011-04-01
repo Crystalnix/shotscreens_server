@@ -18,7 +18,7 @@
             </div>
             <div class="album_info">
                 <b><center>{{ album.name }}</center></b>
-                <center>{{ album.created_date|date }} <a href="{% url gallery.views.delete_album key=album.key %}">Delete</a></center>
+                <center>{{ album.created_date|date }} <a href="{% url gallery.views.delete_album key=album.key %}">Delete</a> / <a href="{% url gallery.views.picture_carousel key=album.key %}">Carousel</a></center>
             </div>
         </div>
     {% endfor %}
