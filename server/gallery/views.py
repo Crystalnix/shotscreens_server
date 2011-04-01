@@ -104,6 +104,9 @@ def upload_picture(request):
             def save(self):
                 picture = super(AddPictureForm, self).save(commit=False)
                 picture.submitter = request.user # при сохранение, поле заполняем данными из request
+
+                picture.data = images.rotate(picture.data, 0)
+
                 try:
                     width_samll = Settings.all().get().width_for_small_picture
                     width_cover = Settings.all().get().width_for_cover_album
@@ -132,7 +135,7 @@ def download_file(request, key, name):
     file = memcache.get("full_"+key)
     if file is not None:
         return HttpResponse(file,
-                            content_type='application/octet-stream',
+                            content_type='image/png',
                             mimetype='image/png')
     else:
         file = Picture.get(db.Key(key))
@@ -140,7 +143,7 @@ def download_file(request, key, name):
         if file.name != name:
             raise Http404('Could not find file with this name!') # если имя файла не соответсвует существующему то выводим сообщение
         return HttpResponse(file.data,
-                            content_type='application/octet-stream',
+                            content_type='image/png',
                             mimetype='image/png')
 
 #    file = Picture.get(db.Key(key)) # db.KEY преобразует ключ из текстовой формы в объект KYE
