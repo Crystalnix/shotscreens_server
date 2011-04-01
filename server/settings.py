@@ -138,7 +138,7 @@ DATABASE_OPTIONS = {
     #'remote_host': 'bla.com',
 }
 
-DEBUG = True
+DEBUG = False
 
 MEDIA_URL = '/media/'
 

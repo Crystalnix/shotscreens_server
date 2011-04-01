@@ -137,16 +137,23 @@ def download_file(request, key, name):
 
     file = memcache.get("full_"+key)
     if file is not None:
-        return HttpResponse(file,
-                            content_type='image/png',
-                            mimetype='image/png')
+        current_time = datetime.datetime.utcnow()
+        response = HttpResponse()
+        last_modified = current_time - datetime.timedelta(days=1)
+        response['Content-Type'] = 'image/jpg'
+        response['Last-Modified'] = last_modified.strftime('%a, %d %b %Y %H:%M:%S GMT')
+        response['Expires'] = current_time + datetime.timedelta(days=30)
+        response['Cache-Control']  = 'public, max-age=315360000'
+        response['Date']           = current_time
+        response.content = file
+        return response
     else:
         file = Picture.get(db.Key(key))
         memcache.add("full_"+key, file.data)
         if file.name != name:
             raise Http404('Could not find file with this name!') # если имя файла не соответсвует существующему то выводим сообщение
         return HttpResponse(file.data,
-                            content_type='image/png',
+#                            content_type='image/png',
                             mimetype='image/png')
 
 #    file = Picture.get(db.Key(key)) # db.KEY преобразует ключ из текстовой формы в объект KYE
@@ -159,9 +166,16 @@ def download_cover(request, key, name):
     """ Отдаем картинку из БД по ключу и имени файла получаемые из запроса по url'у"""
     file = memcache.get("cover_" + key)
     if file is not None:
-        return HttpResponse(file,
-                            content_type='image/png',
-                            mimetype='image/png')
+        current_time = datetime.datetime.utcnow()
+        response = HttpResponse()
+        last_modified = current_time - datetime.timedelta(days=1)
+        response['Content-Type'] = 'image/jpg'
+        response['Last-Modified'] = last_modified.strftime('%a, %d %b %Y %H:%M:%S GMT')
+        response['Expires'] = current_time + datetime.timedelta(days=30)
+        response['Cache-Control']  = 'public, max-age=315360000'
+        response['Date']           = current_time
+        response.content = file
+        return response
     else:
         file = Picture.get(db.Key(key))
         memcache.add("cover_" + key, file.data_cover)
@@ -175,9 +189,16 @@ def download_small(request, key, name):
     """ Отдаем картинку из БД по ключу и имени файла получаемые из запроса по url'у"""
     file = memcache.get("small_" + key)
     if file is not None:
-        return HttpResponse(file,
-                            content_type='image/png',
-                            mimetype='image/png')
+        current_time = datetime.datetime.utcnow()
+        response = HttpResponse()
+        last_modified = current_time - datetime.timedelta(days=1)
+        response['Content-Type'] = 'image/jpg'
+        response['Last-Modified'] = last_modified.strftime('%a, %d %b %Y %H:%M:%S GMT')
+        response['Expires'] = current_time + datetime.timedelta(days=30)
+        response['Cache-Control']  = 'public, max-age=315360000'
+        response['Date']           = current_time
+        response.content = file
+        return response
     else:
         file = Picture.get(db.Key(key))
         memcache.add("small_" + key, file.data)
